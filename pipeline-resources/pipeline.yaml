@@ -1,0 +1,15 @@
+---
+resources:
+  - name: checkout
+    type: git
+    source:
+      uri: https://github.com/vishant-knoldus/spring3hibernate.git
+      branch: master
+
+jobs:
+  - name: job-hello-world
+    public: true
+    plan:
+      - get: checkout
+      - task: hello-world
+        file: checkout/hello-world.yaml

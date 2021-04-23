@@ -1,0 +1,23 @@
+---
+resources:
+- name: resource-tutorial
+  type: git
+  source:
+      uri: https://github.com/vishant-knoldus/spring3hibernate.git
+      branch: master
+
+- name: my-timer
+  type: time
+  source:
+    interval: 2m
+
+jobs:
+- name: triggery
+  public: true
+  serial: true
+  plan:
+  - get: resource-tutorial
+  - get: my-timer
+    trigger: true
+  - task: hello-world
+    file: resource-tutorial/hello-world.yaml
