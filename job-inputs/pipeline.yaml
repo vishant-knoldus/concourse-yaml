@@ -1,7 +1,22 @@
 ---
 resources:
-- name:
-  type:
+- name: vishant-ct
+  type: git
   source:
-    uri:
-    branch:
+    uri: https://github.com/vishant-knoldus/concourse-yaml.git
+    branch: main
+
+- name: web-app
+  type: git
+  source:
+    uri: https://github.com/cloudfoundry-community/simple-go-web-app.git
+
+job:
+- name: webapp-job
+  public: true
+  plan:
+  - get: vishant-ct
+  - get: web-app
+    trigger: true
+  - task: web-app-test
+    path: vishant-ct/job-inputs/run_test.yaml
